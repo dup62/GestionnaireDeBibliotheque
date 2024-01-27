@@ -41,7 +41,7 @@ public class Livre {
         return anneeParution;
     }
 
-    public Boolean getDisponible() {
+    public Boolean isDisponible() {
         return disponible;
     }
 
