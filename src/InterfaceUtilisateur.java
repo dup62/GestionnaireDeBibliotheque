@@ -25,7 +25,8 @@ public class InterfaceUtilisateur {
             System.out.println("7. Afficher la liste des livres indisponibles");
             System.out.println("8. Afficher la liste des livres d'un auteur");
             System.out.println("9. Statistiques");
-            System.out.println("10. Quitter");
+            System.out.println("10. Afficher la liste des retours prévus");
+            System.out.println("11. Quitter");
 
             System.out.print("Choisissez une option : ");
             int choix = scanner.nextInt();
@@ -81,6 +82,9 @@ public class InterfaceUtilisateur {
                     bibliotheque.afficherStatistiques();
                     break;
                 case 10:
+                    bibliotheque.afficherDatesRetourPrevue();
+                    break;
+                case 11:
                     System.out.println("Au revoir !");
                     System.exit(0);
                 default:

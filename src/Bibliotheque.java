@@ -1,5 +1,8 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -107,17 +110,41 @@ public class Bibliotheque {
     public void empunterLivre(Livre livre) {
         if (livre.isDisponible()) {
             livre.setDisponible(false);
+
+            Calendar calendar = Calendar.getInstance();
+
+            Date dateActuelle = new Date();
+
+            calendar.setTime(dateActuelle);
+            calendar.add(Calendar.DAY_OF_MONTH, 14);
+
+            Date dateRetourPrevue = calendar.getTime();
+
+            livre.setDateRetourPrevue(dateRetourPrevue);
         }
     }
 
     public void rendreLivre(Livre livre) {
         livre.setDisponible(true);
+        livre.setDateRetourPrevue(null);
     }
 
     public void emprunterLivre(String titre) {
         for (Livre livre : livres) {
             if (livre.getTitre().equals(titre) && livre.isDisponible()) {
                 livre.setDisponible(false);
+
+                Calendar calendar = Calendar.getInstance();
+
+                Date dateActuelle = new Date();
+
+                calendar.setTime(dateActuelle);
+                calendar.add(Calendar.DAY_OF_MONTH, 14);
+
+                Date dateRetourPrevue = calendar.getTime();
+
+                livre.setDateRetourPrevue(dateRetourPrevue);
+
                 System.out.println("Vous avez emprunté le livre : " + livre.getTitre());
                 return;
             }
@@ -129,6 +156,7 @@ public class Bibliotheque {
         for (Livre livre : livres) {
             if (livre.getTitre().equals(titre) && !livre.isDisponible()) {
                 livre.setDisponible(true);
+                livre.setDateRetourPrevue(null);
                 System.out.println("Vous avez retourné le livre : " + livre.getTitre());
                 return;
             }
@@ -178,5 +206,40 @@ public class Bibliotheque {
         System.out.println("Nombre total de livres : " + totalLivres);
         System.out.println("Nombre de livres disponibles : " + livresDisponibles);
         System.out.println("Nombre de livres empruntés : " + livresEmpruntes);
+    }
+
+    public void afficherDatesRetourPrevue() {
+        System.out.println("\nDates de retour prévues pour les livres empruntés :");
+        for (Livre livre : livres) {
+            if (!livre.isDisponible()) {
+                System.out.println(livre.getTitre() + " - " + livre.getAuteur());
+                livre.afficherDateRetourPrevue();
+            }
+        }
+    }
+
+    public void exporterDonnees(String nomFichier) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomFichier))) {
+            for (Livre livre : livres) {
+                writer.write(livre.toCSVString());
+                writer.newLine();
+            }
+            System.out.println("Données exportées avec succès dans le fichier : " + nomFichier);
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'export des données : " + e.getMessage());
+        }
+    }
+
+    public void importerDonnees(String nomFichier) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(nomFichier))) {
+            String ligne;
+            while ((ligne = reader.readLine()) != null) {
+                Livre livre = Livre.fromCSVString(ligne);
+                livres.add(livre);
+            }
+            System.out.println("Données importées avec succès depuis le fichier : " + nomFichier);
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'import des données : " + e.getMessage());
+        }
     }
 }
