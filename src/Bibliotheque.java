@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
 public class Bibliotheque {
 
     private List<Livre> livres;
+    private static final String NOM_FICHIER = "bibliotheque.txt";
 
     public Bibliotheque() {
         this.livres = new ArrayList<>();
@@ -30,9 +32,19 @@ public class Bibliotheque {
         this.livres.remove(livre);
     }
 
+    public void supprimerLivre(String titre) {
+        for (Livre livre : livres) {
+            if (livre.getTitre().equals(titre)) {
+                livres.remove(livre);
+                return;
+            }
+        }
+    }
+
     public void afficherLivres() {
         for (Livre livre : this.livres) {
-            System.out.println(livre.getTitre());
+            String disponibilite = livre.isDisponible() ? "Disponible" : "Indisponible";
+            System.out.println(livre.getTitre() + " - " + livre.getAuteur() + " - " + livre.getAnneeParution() + " - " + disponibilite);
         }
     }
 
@@ -122,5 +134,49 @@ public class Bibliotheque {
             }
         }
         System.out.println("Vous ne pouvez pas retourner ce livre car il n'a pas été emprunté.");
+    }
+
+    // Méthode pour charger les livres depuis le fichier
+    public void chargerLivresDepuisFichier() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(NOM_FICHIER))) {
+            String ligne;
+            while ((ligne = reader.readLine()) != null) {
+                Livre livre = Livre.fromCSVString(ligne);
+                livres.add(livre);
+            }
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
+        }
+    }
+
+    // Méthode pour enregistrer les livres dans le fichier
+    public void enregistrerLivresDansFichier() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(NOM_FICHIER))) {
+            for (Livre livre : livres) {
+                writer.write(livre.toCSVString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'écriture dans le fichier : " + e.getMessage());
+        }
+    }
+
+    public void afficherStatistiques() {
+        int totalLivres = livres.size();
+        int livresDisponibles = 0;
+        int livresEmpruntes = 0;
+
+        for (Livre livre : livres) {
+            if (livre.isDisponible()) {
+                livresDisponibles++;
+            } else {
+                livresEmpruntes++;
+            }
+        }
+
+        System.out.println("Statistiques de la Bibliothèque :");
+        System.out.println("Nombre total de livres : " + totalLivres);
+        System.out.println("Nombre de livres disponibles : " + livresDisponibles);
+        System.out.println("Nombre de livres empruntés : " + livresEmpruntes);
     }
 }

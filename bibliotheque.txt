@@ -1,0 +1,22 @@
+L'Odyssée,Homère,-725,1
+1984,George Orwell,1949,1
+Le Seigneur des Anneaux,J.R.R. Tolkien,1954,1
+Orgueil et Préjugés,Jane Austen,1813,1
+Harry Potter à l'école des sorciers,J.K. Rowling,1997,1
+Le Petit Prince,Antoine de Saint-Exupéry,1943,1
+Crime et Châtiment,Fiodor Dostoïevski,1866,1
+To Kill a Mockingbird,Harper Lee,1960,1
+Les Misérables,Victor Hugo,1862,1
+Catcher in the Rye,J.D. Salinger,1951,1
+Le Comte de Monte-Cristo,Alexandre Dumas,1844,1
+Le Hobbit,J.R.R. Tolkien,1937,1
+Guerre et Paix,Léon Tolstoï,1869,1
+Anna Karénine,Léon Tolstoï,1877,1
+Le Trône de fer,George R.R. Martin,1996,1
+Le Rouge et le Noir,Stendhal,1830,1
+The Great Gatsby,F. Scott Fitzgerald,1925,1
+The Adventures of Huckleberry Finn,Mark Twain,1884,1
+Alice au pays des merveilles,Lewis Carroll,1865,1
+Jane Eyre,Charlotte Brontë,1847,1
+Ulysses,James Joyce,1922,0
+Madame Bovary,Gustave Flaubert,1857,1

@@ -48,4 +48,32 @@ public class Livre {
     public void setDisponible(Boolean disponible) {
         this.disponible = disponible;
     }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
+    public void setAnneeParution(int anneeParution) {
+        this.anneeParution = anneeParution;
+    }
+
+    // Méthode pour convertir un livre en une chaîne de caractères pour l'enregistrement dans le fichier
+    public String toCSVString() {
+        return titre + "," + auteur + "," + anneeParution + "," + (disponible ? "1" : "0");
+    }
+
+    // Méthode pour créer un livre à partir d'une chaîne de caractères lue depuis le fichier
+    public static Livre fromCSVString(String ligne) {
+        String[] champs = ligne.split(",");
+        Livre livre = new Livre();
+        livre.setTitre(champs[0]);
+        livre.setAuteur(champs[1]);
+        livre.setAnneeParution(Integer.parseInt(champs[2]));
+        livre.setDisponible("1".equals(champs[3])); // Si le champ vaut "1", le livre est disponible, sinon non
+        return livre;
+    }
 }
