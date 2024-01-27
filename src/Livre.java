@@ -12,6 +12,7 @@ public class Livre {
     private int anneeParution;
     private Boolean disponible;
     private Date dateRetourPrevue;
+    private Utilisateur emprunteur;
 
     public Livre() {
         this.titre = "";
@@ -44,6 +45,9 @@ public class Livre {
         return anneeParution;
     }
 
+    public Utilisateur getEmprunteur() {
+        return emprunteur;
+    }
     public Boolean isDisponible() {
         return disponible;
     }
@@ -66,6 +70,10 @@ public class Livre {
 
     public void setDateRetourPrevue(Date dateRetourPrevue) {
         this.dateRetourPrevue = dateRetourPrevue;
+    }
+
+    public void setEmprunteur(Utilisateur emprunteur) {
+        this.emprunteur = emprunteur;
     }
 
     public void afficherDateRetourPrevue() {

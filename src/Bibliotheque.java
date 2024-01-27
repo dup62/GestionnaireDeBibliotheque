@@ -13,13 +13,17 @@ import java.util.List;
 public class Bibliotheque {
 
     private List<Livre> livres;
+    private List<Utilisateur> utilisateurs;
+
     private static final String NOM_FICHIER = "bibliotheque.txt";
 
     public Bibliotheque() {
         this.livres = new ArrayList<>();
+        this.utilisateurs = new ArrayList<>();
     }
 
     public Bibliotheque(List<Livre> livres) {
+        this();
         this.livres = livres;
     }
 
@@ -145,6 +149,8 @@ public class Bibliotheque {
 
                 livre.setDateRetourPrevue(dateRetourPrevue);
 
+                livre.setEmprunteur(null);
+
                 System.out.println("Vous avez emprunté le livre : " + livre.getTitre());
                 return;
             }
@@ -157,6 +163,7 @@ public class Bibliotheque {
             if (livre.getTitre().equals(titre) && !livre.isDisponible()) {
                 livre.setDisponible(true);
                 livre.setDateRetourPrevue(null);
+                livre.setEmprunteur(null);
                 System.out.println("Vous avez retourné le livre : " + livre.getTitre());
                 return;
             }
@@ -241,5 +248,18 @@ public class Bibliotheque {
         } catch (IOException e) {
             System.err.println("Erreur lors de l'import des données : " + e.getMessage());
         }
+    }
+
+    public void ajouterUtilisateur(Utilisateur utilisateur) {
+        utilisateurs.add(utilisateur);
+    }
+
+    public Utilisateur chercherUtilisateurParIdentifiant(int identifiant) {
+        for (Utilisateur utilisateur : utilisateurs) {
+            if (utilisateur.getIdentifiant() == identifiant) {
+                return utilisateur;
+            }
+        }
+        return null;
     }
 }
